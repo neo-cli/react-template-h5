@@ -13,30 +13,31 @@ export default {
   },
   changeCartItemCount(id, count) {
     return {
-        type: actionTypes.CHANGE_CART_ITEM_COUNT,
-        payload: { id, count }
+      type: actionTypes.CHANGE_CART_ITEM_COUNT,
+      payload: { id, count }
     }
   },
   removeCartItem(id) {
       return {
-          type: actionTypes.REMOVE_CART_ITEM,
-          payload: id
+        type: actionTypes.REMOVE_CART_ITEM,
+        payload: id
       }
   },
   changeCheckedCartItems(checkIds) {
       return {
-          type: actionTypes.CHANGE_CHECKED_CART_ITEMS,
-          payload: checkIds
+        type: actionTypes.CHANGE_CHECKED_CART_ITEMS,
+        payload: checkIds
       }
   },
   clearCartItems() {
       return {
-          type: actionTypes.CLEAR_CART_ITEM
+        type: actionTypes.CLEAR_CART_ITEM
       }
   },
   settle() {
-      return {
-          type: actionTypes.SETTLE
-      }
+    debugger
+    return {
+      type: actionTypes.SETTLE
+    }
   }
 }

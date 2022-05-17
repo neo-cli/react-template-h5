@@ -1,7 +1,6 @@
 import * as actionTypes from '@/store/action-types';
-let initialState = []
 
-export default function (state = initialState, action) {
+export default function (state = [], action) {
   switch (action.type) {
     //向购物车里添加一个条目，如果已经有这个商品了，数量加1，如果没有则加一个条目
     case actionTypes.ADD_CART_ITEM: //{type:ADD_CART_ITEM,payload:lesson}
@@ -31,16 +30,16 @@ export default function (state = initialState, action) {
      case actionTypes.CHANGE_CHECKED_CART_ITEMS:
       let checkedIds = action.payload;
       return state.map((item) => {
-          if (checkedIds.includes(item.lesson.id)) {
-            item.checked = true;
-          } else {
-            item.checked = false;
-          }
-          return item;
-      });
+        if (checkedIds.includes(item.lesson.id)) {
+          item.checked = true;
+        } else {
+          item.checked = false;
+        }
+        return item;
+      })
     case actionTypes.SETTLE:
-        return state.filter((item) => !item.checked);
+      return state.filter((item) => !item.checked);
     default:
-        return state;
+      return state;
     }
 }
