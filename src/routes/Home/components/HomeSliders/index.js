@@ -26,7 +26,10 @@ function HomeSliders(props) {
                   <source
                     src={item.avatar}
                     type='video/mp4'
-                    data-wf-ignore='true'
+                  ></source>
+                  <source
+                    src={item.avatar}
+                    type='video/ogg'
                   ></source>
                 </video>
               </div>
