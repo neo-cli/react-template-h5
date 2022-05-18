@@ -18,6 +18,8 @@ function HomeSliders(props) {
                   autoPlay
                   width={'100%'}
                   src={item.avatar}
+                  data-wf-ignore='true'
+                  data-object-fit='cover'
                   controls="controls"
                 >
                 </video>
