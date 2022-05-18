@@ -17,11 +17,12 @@ function HomeSliders(props) {
                 <video
                   autoPlay
                   width={'100%'}
-                  src={item.avatar}
                   data-wf-ignore='true'
+                  preload='auto'
                   data-object-fit='cover'
                   controls="controls"
                 >
+                  <source src={item.avatar} data-wf-ignore='true'></source>
                 </video>
               </div>
           ))
