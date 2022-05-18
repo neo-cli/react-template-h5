@@ -21,8 +21,13 @@ function HomeSliders(props) {
                   preload='auto'
                   data-object-fit='cover'
                   controls="controls"
+                  x5-video-player-fullscreen='true'
                 >
-                  <source src={item.avatar} data-wf-ignore='true'></source>
+                  <source
+                    src={item.avatar}
+                    type='video/mp4'
+                    data-wf-ignore='true'
+                  ></source>
                 </video>
               </div>
           ))

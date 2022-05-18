@@ -9,7 +9,7 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case actionTypes.VALIDATE:
-        if (action.payload.code === 0) {
+        if (action.payload && action.payload.code === 0) {
           return {
             loginState: 'LOGINED',
             user: action.payload.data,
