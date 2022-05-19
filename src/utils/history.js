@@ -1,3 +1,3 @@
-import { createHashHistory } from 'history';
-let history = createHashHistory();
+import { createBrowserHistory } from 'history';
+let history = createBrowserHistory();
 export default history;
