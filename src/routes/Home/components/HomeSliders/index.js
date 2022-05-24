@@ -31,6 +31,10 @@ function HomeSliders(props) {
                     src={item.avatar}
                     type='video/ogg'
                   ></source>
+                  <source
+                    src={item.avatar}
+                    type='video/webm'
+                  ></source>
                 </video>
               </div>
           ))
