@@ -18,8 +18,6 @@ function HomeSliders(props) {
               <div key={item.id} style={{ position: 'relative' }}>
                 <Player
                   ref={player}
-                  autoPlay
-                  playsInline
                 >
                   <source src={item.avatar}/>
                   {/* <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" /> */}
