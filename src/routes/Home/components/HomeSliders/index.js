@@ -1,20 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Carousel } from 'antd';
+import { Player, ControlBar  } from 'video-react';
 import './index.less'
-
+import 'video-react/dist/video-react.css'; // import css
 function HomeSliders(props) {
+  const player = useRef(null)
   useEffect(() => {
     if (props.sliders.length === 0) {
       let result = props.getSliders();
-      console.log('HomeSliders', result);
+      console.log('HomeSliders', result)
     }
-  }, []);
+  }, [])
   return (
     <Carousel effect="fade" draggable={false} touchMove={false}>
         {
           props.sliders.map((item, index) => (
-              <div key={item.id}>
-                <video
+              <div key={item.id} style={{ position: 'relative' }}>
+                <Player
+                  ref={player}
+                  autoPlay
+                  playsInline
+                >
+                  <source src={item.avatar}/>
+                  {/* <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" /> */}
+                  <ControlBar autoHide={false} />
+                </Player>
+                {/* <video
                   autoPlay
                   width={'100%'}
                   data-wf-ignore='true'
@@ -35,7 +46,7 @@ function HomeSliders(props) {
                     src={item.avatar}
                     type='video/webm'
                   ></source>
-                </video>
+                </video> */}
               </div>
           ))
         }

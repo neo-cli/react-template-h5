@@ -35,10 +35,10 @@ function HomeHeader(props) {
         <img src={logo}/>
         <BarsOutlined style={{ fontSize: '32px' }} onClick={() => setIsMenuVisible(!isMenuVisible)}/>
       </div>
-      <Transition in={isMenuVisible} timeout={duration}>
+      {/* <Transition in={isMenuVisible} timeout={duration}>
         {
           (state) => (
-            <ul 
+            <ul
               className="category"
               onClick={setCurrentCategory}
               style={{ ...defaultStyle, ...transitionStyles[state] }}
@@ -49,7 +49,7 @@ function HomeHeader(props) {
             </ul>
           )
         }
-      </Transition>
+      </Transition> */}
     </header>
   )
 }
