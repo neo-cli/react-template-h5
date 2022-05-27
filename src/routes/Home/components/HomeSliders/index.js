@@ -19,10 +19,10 @@ function HomeSliders(props) {
                 <Player
                   ref={player}
                 >
-                  <source src={item.avatar} type='video/mp4'/>
+                  {/* <source src={item.avatar} type='video/mp4'/> */}
                   {/* <source src={item.avatar} type='video/ogg'/>
                   <source src={item.avatar} type='video/webm'/> */}
-                  {/* <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type='video/mp4'/> */}
+                  <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type='video/mp4'/>
                   <ControlBar autoHide={false} />
                 </Player>
                 {/* <video

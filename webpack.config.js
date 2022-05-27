@@ -107,7 +107,7 @@ module.exports = {
           options: {
             limit: 4096,
             fallback: {
-              loader: 'url-loader',
+              loader: 'file-loader',
               options: {
                 name: 'media/[name].[hash:8].[ext]'
               }
