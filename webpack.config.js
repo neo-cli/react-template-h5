@@ -97,7 +97,26 @@ module.exports = {
     {
         test: /\.(jpg|png|gif|svg|jpeg)$/,
         use: ['url-loader']
-    }]
+    },
+    {
+      test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+      use: [
+        /* config.module.rule('media').use('url-loader') */
+        {
+          loader: 'url-loader',
+          options: {
+            limit: 4096,
+            fallback: {
+              loader: 'url-loader',
+              options: {
+                name: 'media/[name].[hash:8].[ext]'
+              }
+            }
+          }
+        }
+      ]
+    },
+  ]
   },
   plugins: [
     new HtmlWebpackPlugin({

@@ -26,7 +26,7 @@ export default {
                     //调接口加载数据
                     dispatch({
                       type: actionTypes.SET_LESSONS,
-                      payload: result.data
+                      payload: result?.data
                     });//先把loading设置为true
 
                 }
