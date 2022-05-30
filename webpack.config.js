@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
 const path = require('path')
 const environment = process.env.NODE_ENV === 'production' ? 'production' : 'development'
 module.exports = {
@@ -123,6 +124,14 @@ module.exports = {
       template: './src/index.html'
     }),
     //热更新插件
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    environment === 'production'
+      && new CompressionPlugin({
+        algorithm: 'gzip',
+        test: /\.js$|.\css|.less/, // 匹配文件名
+        threshold: 10240, // 对超过10k的数据压缩
+        deleteOriginalAssets: false // 不删除源文件
+      })
+
   ]
 }
