@@ -54,7 +54,7 @@ function LessonList(props, lessonListRef) {
                     <Card
                       hoverable={true}
                       style={{width:'100%'}}
-                      cover={<img src={lesson.avatar}/>}
+                      cover={<img src={lesson.avatar} loading="lazy"/>}
                     >
                       <Card.Meta
                         title={lesson.coursename}
