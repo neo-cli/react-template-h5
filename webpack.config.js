@@ -1,16 +1,20 @@
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const path = require('path')
 const environment = process.env.NODE_ENV === 'production' ? 'production' : 'development'
+const devtool = (environment === 'development' ? 'cheap-module-eval-source-map' : 'hidden-source-map')
 module.exports = {
   mode: environment,
   entry: './src/index.js',
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: '[name].[chunkhash].js'
   },
-  devtool: 'source-map',
+  devtool: 'hidden-source-map',
   devServer: {
     hot: true, // 热更新插件
     port: 8088,
@@ -130,7 +134,58 @@ module.exports = {
       test: /\.js$|.\css|.less/, // 匹配文件名
       threshold: 10240, // 对超过10k的数据压缩
       deleteOriginalAssets: false // 不删除源文件
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css'
     })
-
-  ]
+  ],
+  optimization: {
+    minimize: true,
+    minimizer: [
+      // 压缩JS
+      new TerserPlugin({}),
+      // 压缩CSS
+      new OptimizeCSSAssetsPlugin({})
+    ],
+    // 自动分割第三方模块和公共模块
+    splitChunks: {
+      chunks: 'all', // 默认作用于异步chunk，值为all/initial/async
+      minSize: 0, // 默认值是30kb,代码块的最小尺寸
+      minChunks: 1, // 被多少模块共享,在分割之前模块的被引用次数
+      maxAsyncRequests: 3, // 限制异步模块内部的并行最大请求数的，说白了你可以理解为是每个import()它里面的最大并行请求数量
+      maxInitialRequests: 5, // 限制入口的拆分数量
+      automaticNameDelimiter: '~', // 默认webpack将会使用入口名和代码块的名称生成命名,比如 'vendors~main.js'
+      cacheGroups: {
+        libs: {
+          name: 'chunk-libs',
+          test: /[\\/]node_modules[\\/]/,
+          priority: 10,
+          chunks: 'initial' // only package third parties that are initially dependent
+        },
+        elementUI: {
+          name: 'chunk-antd', // split elementUI into a single package
+          priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+          test: /[\\/]node_modules[\\/]_?antd(.*)/ // in order to adapt to cnpm
+        },
+        lodash: {
+          name: 'chunk-lodash', // split lodash into a single package
+          priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+          test: /[\\/]node_modules[\\/]_?lodash(.*)/ // in order to adapt to cnpm
+        },
+        echarts: {
+          name: 'chunk-echarts', // split echarts into a single package
+          priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
+          test: /[\\/]node_modules[\\/]_?echarts(.*)/ // in order to adapt to cnpm
+        },
+        commons: {
+          name: 'chunk-commons',
+          minChunks: 3, //  minimum common number
+          priority: 5,
+          reuseExistingChunk: true
+        }
+      }
+    },
+    // 为了长期缓存保持运行时代码块是单独的文件
+    runtimeChunk: 'single'
+  }
 }
