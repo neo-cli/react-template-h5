@@ -12,7 +12,8 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].[chunkhash].js'
+    filename: '[name].[chunkhash].js',
+    chunkFilename: '[name].[chunkhash:5].chunk.js'
   },
   devtool: 'hidden-source-map',
   devServer: {
