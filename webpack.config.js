@@ -7,12 +7,13 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const path = require('path')
 const environment = process.env.NODE_ENV === 'production' ? 'production' : 'development'
 const devtool = (environment === 'development' ? 'cheap-module-eval-source-map' : 'hidden-source-map')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 module.exports = {
   mode: environment,
   entry: './src/index.js',
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].[chunkhash].js',
+    filename: '[name].[chunkhash:5].js',
     chunkFilename: '[name].[chunkhash:5].chunk.js'
   },
   devtool: 'hidden-source-map',
@@ -60,43 +61,48 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader',
-        {
+        use: [
+          // 'style-loader',
+          MiniCssExtractPlugin.loader,
+          {
             loader: 'css-loader',
             options: { importLoaders: 0 }
-        },
-        {
-                loader: 'postcss-loader',
-                // options: {
-                //     plugins: [
-                //         require('autoprefixer')
-                //     ]
-                // }
-        }]
-      },
-      {
-        test: /\.less$/,
-        use: ['style-loader',
-        {
-            loader: 'css-loader',
-            options: { importLoaders: 0 }
-        },
-        {
+          },
+          {
             loader: 'postcss-loader',
             // options: {
             //     plugins: [
             //         require('autoprefixer')
             //     ]
             // }
-        },
-        {
+          }
+        ]
+      },
+      {
+        test: /\.less$/,
+        use: [
+          // 'style-loader',
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: { importLoaders: 0 }
+          },
+          {
+            loader: 'postcss-loader',
+            // options: {
+            //     plugins: [
+            //         require('autoprefixer')
+            //     ]
+            // }
+          },
+          {
             loader: 'px2rem-loader',
             options: {
                 remUnit: 75,
                 remPrecesion: 8
             }
-        },
-            'less-loader'
+          },
+          'less-loader'
         ],
         // exclude: /node_modules/
     },
@@ -125,6 +131,7 @@ module.exports = {
   ]
   },
   plugins: [
+    new CleanWebpackPlugin({ cleanOnceBeforeBuildPatterns: ['**/*'] }),
     new HtmlWebpackPlugin({
       template: './src/index.html'
     }),
@@ -137,7 +144,8 @@ module.exports = {
       deleteOriginalAssets: false // 不删除源文件
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].css'
+      filename: '[name].[contenthash:5].css',
+      chunkFilename: '[id].css'
     })
   ],
   optimization: {
