@@ -40,7 +40,8 @@ module.exports = {
       '~': path.resolve(__dirname, 'node_modules')
     },
     //当你加载一个文件的时候,没有指定扩展名的时候，会自动寻找哪些扩展名
-    extensions: ['.js', '.jsx', '.json']
+    extensions: ['.js', '.jsx', '.json'],
+    mainFields: ['jsnext:main', 'browser', 'main']
   },
   module: {
     rules: [
@@ -171,8 +172,8 @@ module.exports = {
           priority: 10,
           chunks: 'initial' // only package third parties that are initially dependent
         },
-        elementUI: {
-          name: 'chunk-antd', // split elementUI into a single package
+        antdUI: {
+          name: 'chunk-antd', // split antdUI into a single package
           priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
           test: /[\\/]node_modules[\\/]_?antd(.*)/ // in order to adapt to cnpm
         },
