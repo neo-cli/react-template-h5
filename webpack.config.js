@@ -22,9 +22,8 @@ module.exports = {
     port: 8088,
     host: 'localhost',
     contentBase: path.join(__dirname, 'dist'),
-    historyApiFallback: { //browserHistory的时候，刷新会报404. 自动重定向到index.html
-      index: './index.html'
-    },
+    //browserHistory的时候，刷新会报404. 自动重定向到index.html
+    historyApiFallback: true,
     proxy: {
       '/dev-api': {
         target: 'http://106.55.26.154:3003',
