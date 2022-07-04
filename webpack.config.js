@@ -5,8 +5,8 @@ const TerserPlugin = require('terser-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const path = require('path')
-const environment = process.env.NODE_ENV === 'production' ? 'production' : 'development'
-const devtool = (environment === 'development' ? 'eval-cheap-module-source-map' : 'hidden-source-map')
+const environment = process.env.NODE_ENV === 'production' ? 'production' : 'development' //  hidden-source-map
+const devtool = (environment === 'development' ? 'eval-cheap-module-source-map' : 'source-map')
 const {
   CleanWebpackPlugin
 } = require('clean-webpack-plugin')
@@ -163,7 +163,7 @@ module.exports = {
       chunkFilename: '[id].css'
     }),
     new SentryCliPlugin({
-      release: 'pro@1.0.0',
+      release: 'pro@1.0.1',
       // 打包后的代码目录 根据项目实际调整
       include: './dist',
       // url路径访问到的js资源前缀 根据项目实际调整 默认不用动
