@@ -17,7 +17,7 @@ module.exports = {
     filename: '[name].[chunkhash:5].js',
     chunkFilename: '[name].[chunkhash:5].chunk.js'
   },
-  devtool: 'hidden-source-map',
+  devtool: 'source-map', // hidden-source-map
   devServer: {
     hot: true, // 热更新插件
     port: 8088,
@@ -68,15 +68,15 @@ module.exports = {
           {
             loader: 'css-loader',
             options: { importLoaders: 0 }
-          },
-          {
-            loader: 'postcss-loader',
-            // options: {
-            //     plugins: [
-            //         require('autoprefixer')
-            //     ]
-            // }
           }
+          // {
+          //   loader: 'postcss-loader',
+          //   // options: {
+          //   //     plugins: [
+          //   //         require('autoprefixer')
+          //   //     ]
+          //   // }
+          // }
         ]
       },
       {
@@ -88,14 +88,14 @@ module.exports = {
             loader: 'css-loader',
             options: { importLoaders: 0 }
           },
-          {
-            loader: 'postcss-loader',
-            options: {
-              plugins: [
-                require('autoprefixer')
-              ]
-            }
-          },
+          // {
+          //   loader: 'postcss-loader',
+          //   options: {
+          //     plugins: [
+          //       require('autoprefixer')
+          //     ]
+          //   }
+          // },
           {
             loader: 'px2rem-loader',
             options: {
@@ -148,7 +148,7 @@ module.exports = {
       filename: '[name].[contenthash:5].css',
       chunkFilename: '[id].css'
     }),
-    new MiniCssExtractPlugin({
+    new SentryCliPlugin({
       release: 'pro@1.0.0',
       // 打包后的代码目录 根据项目实际调整
       include: './dist',

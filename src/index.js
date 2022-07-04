@@ -20,8 +20,7 @@ import { BrowserTracing } from "@sentry/tracing";
 import history from '@/utils/history';
 import { ConnectedRouter } from 'connected-react-router';
 import SentryRRWeb from '@sentry/rrweb';
-import { createBrowserHistory } from 'history';
-const history = createBrowserHistory();
+
 const routes = [
   {
     path: '/detail/:id'
