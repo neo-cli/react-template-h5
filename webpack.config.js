@@ -8,6 +8,7 @@ const path = require('path')
 const environment = process.env.NODE_ENV === 'production' ? 'production' : 'development'
 const devtool = (environment === 'development' ? 'cheap-module-eval-source-map' : 'hidden-source-map')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const SentryCliPlugin = require('@sentry/webpack-plugin')
 module.exports = {
   mode: environment,
   entry: './src/index.js',
@@ -89,11 +90,11 @@ module.exports = {
           },
           {
             loader: 'postcss-loader',
-            // options: {
-            //     plugins: [
-            //         require('autoprefixer')
-            //     ]
-            // }
+            options: {
+              plugins: [
+                require('autoprefixer')
+              ]
+            }
           },
           {
             loader: 'px2rem-loader',
@@ -146,6 +147,21 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash:5].css',
       chunkFilename: '[id].css'
+    }),
+    new MiniCssExtractPlugin({
+      release: 'pro@1.0.0',
+      // 打包后的代码目录 根据项目实际调整
+      include: './dist',
+      // url路径访问到的js资源前缀 根据项目实际调整 默认不用动
+      // urlPrefix: '~/dist/js',
+      ignore: ['node_modules'],
+      deleteAfterCompile: true
+      // setCommits: {
+      //   // ==================== 需要改成对应项目的git地址=============
+      //   repo: 'https://xxx.xx.xx',
+      //   // ==================== 需要改成对应项目的git地址=============
+      //   auto: true
+      // }
     })
   ],
   optimization: {

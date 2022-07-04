@@ -1,0 +1,6 @@
+[auth]
+token=a95d852c2b4d456bb2f83f55a312687666b0ba18cabe4f17b2317f9609c6fd05
+[defaults]
+url=http://106.55.26.154:8588/
+org=sentry
+project=react-sentry
