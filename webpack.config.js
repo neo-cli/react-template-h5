@@ -20,7 +20,7 @@ module.exports = {
     filename: '[name].[chunkhash:5].js',
     chunkFilename: '[name].[chunkhash:5].chunk.js'
   },
-  devtool: devtool, // hidden-source-map
+  devtool: 'source-map', // hidden-source-map
   devServer: {
     hot: true, // 热更新插件
     port: 8088,
