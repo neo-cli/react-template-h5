@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, matchPath } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 import { ConfigProvider } from 'antd';
