@@ -5,6 +5,7 @@ import './index.less'
 import 'video-react/dist/video-react.css'; // import css
 function HomeSliders(props) {
   const player = useRef(null)
+  console.log(window.a, 'aaaaa')
   useEffect(() => {
     if (props.sliders.length === 0) {
       let result = props.getSliders();
@@ -19,10 +20,10 @@ function HomeSliders(props) {
                 <Player
                   ref={player}
                 >
-                  <source src={item.avatar} type='video/mp4'/>
+                  {/* <source src={item.avatar} type='video/mp4'/>
                   <source src={item.avatar} type='video/ogg'/>
-                  <source src={item.avatar} type='video/webm'/>
-                  {/* <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type='video/mp4'/> */}
+                  <source src={item.avatar} type='video/webm'/> */}
+                  <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type='video/mp4'/>
                   <ControlBar autoHide={false} />
                 </Player>
                 {/* <video

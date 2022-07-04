@@ -6,9 +6,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const path = require('path')
 const environment = process.env.NODE_ENV === 'production' ? 'production' : 'development'
-const devtool = (environment === 'development' ? 'cheap-module-eval-source-map' : 'hidden-source-map')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const devtool = (environment === 'development' ? 'eval-cheap-module-source-map' : 'hidden-source-map')
+const {
+  CleanWebpackPlugin
+} = require('clean-webpack-plugin')
 const SentryCliPlugin = require('@sentry/webpack-plugin')
+
 module.exports = {
   mode: environment,
   entry: './src/index.js',
@@ -17,7 +20,7 @@ module.exports = {
     filename: '[name].[chunkhash:5].js',
     chunkFilename: '[name].[chunkhash:5].chunk.js'
   },
-  devtool: 'source-map', // hidden-source-map
+  devtool: devtool, // hidden-source-map
   devServer: {
     hot: true, // 热更新插件
     port: 8088,
@@ -30,7 +33,9 @@ module.exports = {
         target: 'http://106.55.26.154:3003',
         ws: true,
         changeOrigin: true,
-        pathRewrite: { '^/dev-api': '/api' }
+        pathRewrite: {
+          '^/dev-api': '/api'
+        }
       }
     }
   },
@@ -44,21 +49,24 @@ module.exports = {
     mainFields: ['jsnext:main', 'browser', 'main']
   },
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.jsx?$/,
         use: {
-            loader: 'babel-loader',
-            options:{
-             "presets": ["@babel/preset-env"],
-             "plugins": [
-                ["@babel/plugin-proposal-decorators", { "legacy": true }],
-                ["@babel/plugin-proposal-class-properties", { "loose" : true }]
-             ]
-            }
+          loader: 'babel-loader',
+          options: {
+            "presets": ["@babel/preset-env"],
+            "plugins": [
+              ["@babel/plugin-proposal-decorators", {
+                "legacy": true
+              }],
+              ["@babel/plugin-proposal-class-properties", {
+                "loose": true
+              }]
+            ]
+          }
         },
-        include: path.join(__dirname,'src'),
-        exclude:/node_modules/
+        include: path.join(__dirname, 'src'),
+        exclude: /node_modules/
       },
       {
         test: /\.css$/,
@@ -67,7 +75,9 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
-            options: { importLoaders: 0 }
+            options: {
+              importLoaders: 0
+            }
           }
           // {
           //   loader: 'postcss-loader',
@@ -86,7 +96,9 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
-            options: { importLoaders: 0 }
+            options: {
+              importLoaders: 0
+            }
           },
           // {
           //   loader: 'postcss-loader',
@@ -99,40 +111,42 @@ module.exports = {
           {
             loader: 'px2rem-loader',
             options: {
-                remUnit: 75,
-                remPrecesion: 8
+              remUnit: 75,
+              remPrecesion: 8
             }
           },
           'less-loader'
         ],
         // exclude: /node_modules/
-    },
-    {
+      },
+      {
         test: /\.(jpg|png|gif|svg|jpeg)$/,
         use: ['url-loader']
-    },
-    {
-      test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
-      use: [
-        /* config.module.rule('media').use('url-loader') */
-        {
-          loader: 'url-loader',
-          options: {
-            limit: 4096,
-            fallback: {
-              loader: 'file-loader',
-              options: {
-                name: 'media/[name].[hash:8].[ext]'
+      },
+      {
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        use: [
+          /* config.module.rule('media').use('url-loader') */
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 4096,
+              fallback: {
+                loader: 'file-loader',
+                options: {
+                  name: 'media/[name].[hash:8].[ext]'
+                }
               }
             }
           }
-        }
-      ]
-    },
-  ]
+        ]
+      },
+    ]
   },
   plugins: [
-    new CleanWebpackPlugin({ cleanOnceBeforeBuildPatterns: ['**/*'] }),
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: ['**/*']
+    }),
     new HtmlWebpackPlugin({
       template: './src/index.html'
     }),
@@ -213,4 +227,5 @@ module.exports = {
     // 为了长期缓存保持运行时代码块是单独的文件
     runtimeChunk: 'single'
   }
+
 }
