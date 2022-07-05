@@ -11,7 +11,7 @@ const {
   CleanWebpackPlugin
 } = require('clean-webpack-plugin')
 const SentryCliPlugin = require('@sentry/webpack-plugin')
-
+const DynamicCdnWebpackPlugin = require('@talend/dynamic-cdn-webpack-plugin');
 module.exports = {
   mode: environment,
   entry: './src/index.js',
@@ -162,7 +162,8 @@ module.exports = {
       //   // ==================== 需要改成对应项目的git地址=============
       //   auto: true
       // }
-    })
+    }),
+    new DynamicCdnWebpackPlugin()
   ],
   optimization: {
     minimize: true,
