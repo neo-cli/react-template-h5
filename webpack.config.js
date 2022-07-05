@@ -20,7 +20,7 @@ module.exports = {
     filename: '[name].[chunkhash:5].js',
     chunkFilename: '[name].[chunkhash:5].chunk.js'
   },
-  devtool: 'source-map', // hidden-source-map
+  devtool: devtool, // hidden-source-map
   devServer: {
     hot: true, // 热更新插件
     port: 8088,
@@ -50,97 +50,83 @@ module.exports = {
   },
   module: {
     rules: [{
-        test: /\.jsx?$/,
-        use: {
-          loader: 'babel-loader',
+      test: /\.jsx?$/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          "presets": ["@babel/preset-env"],
+          "plugins": [
+            ["@babel/plugin-proposal-decorators", {
+              "legacy": true
+            }],
+            ["@babel/plugin-proposal-class-properties", {
+              "loose": true
+            }]
+          ]
+        }
+      },
+      include: path.join(__dirname, 'src'),
+      exclude: /node_modules/
+    },
+    {
+      test: /\.css$/,
+      use: [
+        // 'style-loader',
+        MiniCssExtractPlugin.loader,
+        {
+          loader: 'css-loader',
           options: {
-            "presets": ["@babel/preset-env"],
-            "plugins": [
-              ["@babel/plugin-proposal-decorators", {
-                "legacy": true
-              }],
-              ["@babel/plugin-proposal-class-properties", {
-                "loose": true
-              }]
-            ]
+            importLoaders: 0
           }
         },
-        include: path.join(__dirname, 'src'),
-        exclude: /node_modules/
-      },
-      {
-        test: /\.css$/,
-        use: [
-          // 'style-loader',
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 0
-            }
+        'postcss-loader'
+      ]
+    },
+    {
+      test: /\.less$/,
+      use: [
+        // 'style-loader',
+        MiniCssExtractPlugin.loader,
+        {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 0
           }
-          // {
-          //   loader: 'postcss-loader',
-          //   // options: {
-          //   //     plugins: [
-          //   //         require('autoprefixer')
-          //   //     ]
-          //   // }
-          // }
-        ]
-      },
-      {
-        test: /\.less$/,
-        use: [
-          // 'style-loader',
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 0
-            }
-          },
-          // {
-          //   loader: 'postcss-loader',
-          //   options: {
-          //     plugins: [
-          //       require('autoprefixer')
-          //     ]
-          //   }
-          // },
-          {
-            loader: 'px2rem-loader',
-            options: {
-              remUnit: 75,
-              remPrecesion: 8
-            }
-          },
-          'less-loader'
-        ],
-        // exclude: /node_modules/
-      },
-      {
-        test: /\.(jpg|png|gif|svg|jpeg)$/,
-        use: ['url-loader']
-      },
-      {
-        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
-        use: [
-          /* config.module.rule('media').use('url-loader') */
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 4096,
-              fallback: {
-                loader: 'file-loader',
-                options: {
-                  name: 'media/[name].[hash:8].[ext]'
-                }
+        },
+        'postcss-loader',
+        {
+          loader: 'px2rem-loader',
+          options: {
+            remUnit: 75,
+            remPrecesion: 8
+          }
+        },
+        'less-loader'
+      ],
+      // exclude: /node_modules/
+    },
+    {
+      test: /\.(jpg|png|gif|svg|jpeg)$/,
+      use: ['url-loader']
+    },
+    {
+      test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+      use: [
+        /* config.module.rule('media').use('url-loader') */
+        {
+          loader: 'url-loader',
+          options: {
+            limit: 4096,
+            fallback: {
+              loader: 'file-loader',
+              options: {
+                name: 'media/[name].[hash:8].[ext]'
               }
             }
           }
-        ]
-      },
+        }
+      ]
+    },
     ]
   },
   plugins: [

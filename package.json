@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode=production",
-    "dev": "webpack-dev-server --mode=development"
+    "dev": "webpack-dev-server --env=development"
   },
   "keywords": [],
   "author": "",
@@ -62,6 +62,7 @@
     "mini-css-extract-plugin": "^2.6.0",
     "optimize-css-assets-webpack-plugin": "^6.0.1",
     "postcss-loader": "^6.1.0",
+    "postcss-preset-env": "^7.7.2",
     "px2rem-loader": "^0.1.9",
     "source-map-loader": "^3.0.0",
     "style-loader": "^2.0.0",
