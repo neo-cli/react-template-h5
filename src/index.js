@@ -44,7 +44,7 @@ Sentry.init({
       maskAllInputs: false, // 将所有输入内容记录为 *
     }),
   ],
-  release: 'pro@1.0.1',
+  release: 'pro@1.0.2',
 
   // Set tracesSampleRate to 1.0 to capture 100%
   // of transactions for performance monitoring.

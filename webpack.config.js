@@ -20,7 +20,7 @@ module.exports = {
     filename: '[name].[chunkhash:5].js',
     chunkFilename: '[name].[chunkhash:5].chunk.js'
   },
-  devtool: devtool, // hidden-source-map
+  devtool: 'source-map', // hidden-source-map
   devServer: {
     hot: true, // 热更新插件
     port: 8088,
@@ -55,14 +55,14 @@ module.exports = {
         loader: 'babel-loader',
         options: {
           "presets": ["@babel/preset-env"],
-          "plugins": [
-            ["@babel/plugin-proposal-decorators", {
-              "legacy": true
-            }],
-            ["@babel/plugin-proposal-class-properties", {
-              "loose": true
-            }]
-          ]
+          // "plugins": [
+          //   ["@babel/plugin-proposal-decorators", {
+          //     "legacy": true
+          //   }],
+          //   ["@babel/plugin-proposal-class-properties", {
+          //     "loose": true
+          //   }]
+          // ]
         }
       },
       include: path.join(__dirname, 'src'),
@@ -149,7 +149,7 @@ module.exports = {
       chunkFilename: '[id].css'
     }),
     new SentryCliPlugin({
-      release: 'pro@1.0.1',
+      release: 'pro@1.0.2',
       // 打包后的代码目录 根据项目实际调整
       include: './dist',
       // url路径访问到的js资源前缀 根据项目实际调整 默认不用动
