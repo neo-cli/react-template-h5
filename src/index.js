@@ -51,6 +51,7 @@ Sentry.init({
   // We recommend adjusting this value in production
   tracesSampleRate: 1.0,
 });
+
 ReactDOM.render(
   <Provider store={store}>
         <ConnectedRouter history={history}>
