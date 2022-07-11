@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode=production",
-    "dev": "webpack-dev-server --env=production"
+    "dev": "webpack-dev-server --env=production && rm -rf dist/*.map"
   },
   "keywords": [],
   "author": "",

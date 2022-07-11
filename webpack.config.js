@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const PurgecssPlugin = require("purgecss-webpack-plugin")
+// const PurgecssPlugin = require("purgecss-webpack-plugin")
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const path = require('path')
 const environment = process.env.NODE_ENV === 'production' ? 'production' : 'development' //  hidden-source-map
@@ -13,10 +13,10 @@ const {
 } = require('clean-webpack-plugin')
 const SentryCliPlugin = require('@sentry/webpack-plugin')
 const DynamicCdnWebpackPlugin = require('@talend/dynamic-cdn-webpack-plugin');
-const glob = require("glob")
-const PATHS = {
-  src: path.join(__dirname, "src")
-}
+// const glob = require("glob")
+// const PATHS = {
+//   src: path.join(__dirname, "src")
+// }
 module.exports = {
   mode: 'production',
   entry: './src/index.js',
@@ -153,9 +153,9 @@ module.exports = {
       filename: '[name].[contenthash:5].css',
       chunkFilename: '[id].css'
     }),
-    new PurgecssPlugin({
-      paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
-    }),
+    // new PurgecssPlugin({
+    //   paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
+    // }),
     new SentryCliPlugin({
       release: 'pro@1.0.2',
       // 打包后的代码目录 根据项目实际调整
